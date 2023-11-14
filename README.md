@@ -1,1 +1,1 @@
-# primitives.st
+# vm-plugins-primitives.st
