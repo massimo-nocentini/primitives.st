@@ -6,7 +6,8 @@ Class {
 }
 
 { #category : 'baselines' }
-BaselineOfVMPluginsPrimitives >> common: spec [
+BaselineOfVMPluginsPrimitives >> baseline: spec [
 
-	spec package: 'VM-Plugins-Primitives'
+	<baseline>
+	spec for: #common do: [ spec package: 'VM-Plugins-Primitives' ]
 ]
