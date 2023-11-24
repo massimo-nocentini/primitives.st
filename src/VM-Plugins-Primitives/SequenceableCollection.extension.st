@@ -9,13 +9,12 @@ SequenceableCollection >> primitiveTimsort: comparer reverse: shouldReverse [
 
 { #category : '*VM-Plugins-Primitives' }
 SequenceableCollection >> timsort: comparer reverse: shouldReverse [
-
-	| callback |
+	"| callback |
 	callback := (FFICallback
-		             signature: #( int #( int #, int #, void #* ) )
+		             signature: #( int #( int i #, int j #, void #* ud ) )
 		             block: [ :i :j :externalAddress |
-			             comparer value: (self at: i) value: (self at: j) ])
-		            getHandle.
+			             (comparer value: (self at: i) value: (self at: j))
+				             asBit ]) getHandle."
 
-	^ self primitiveTimsort: callback reverse: shouldReverse
+	^ self primitiveTimsort: nil reverse: shouldReverse
 ]

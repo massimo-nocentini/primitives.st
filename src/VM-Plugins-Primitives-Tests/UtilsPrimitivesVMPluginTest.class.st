@@ -13,3 +13,14 @@ UtilsPrimitivesVMPluginTest >> testLines [
 world' linesIncludeEmptySubstrings: false)
 		equals: { 'hello'. 'world' }
 ]
+
+{ #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> testTimsort [
+
+	| array |
+	array := (1 to: 1e6) shuffled.
+
+	self
+		assert: (array timsort: [ :a :b | a < b ] reverse: false)
+		equals: (array sorted: [ :a :b | a < b ])
+]
