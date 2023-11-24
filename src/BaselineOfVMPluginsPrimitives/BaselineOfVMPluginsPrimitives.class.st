@@ -9,5 +9,8 @@ Class {
 BaselineOfVMPluginsPrimitives >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ spec package: 'VM-Plugins-Primitives' ]
+	spec for: #common do: [
+		spec
+			package: 'VM-Plugins-Primitives';
+			package: 'VM-Plugins-Primitives-Tests' ]
 ]
