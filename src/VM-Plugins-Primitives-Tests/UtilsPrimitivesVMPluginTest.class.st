@@ -18,6 +18,8 @@ world' linesIncludeEmptySubstrings: false)
 UtilsPrimitivesVMPluginTest >> testTimsort [
 
 	| array |
+	self timeLimit: 5 seconds.
+	
 	array := (1 to: 1e6) shuffled.
 
 	self
