@@ -5,7 +5,6 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 
 	<primitive: 'primitive_cairo_scaled_font_text_to_glyphs' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFail.
 	^ self
 		  ffiConvertString: utf8String
 		  len: strlen
@@ -58,17 +57,19 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 	error = CAIRO_STATUS_SUCCESS ifFalse: [ ^ CairoGlyphsArray new: 0 ].
 
 	glyphsSize := lenValue unsignedLongAt: 1.
-	
+
 	cairoFont
 		getExtentsOfGlyphs: ptr
 		ofLength: glyphsSize
 		into: glyphExtents.
 
 	glyphs := CairoGlyphsArray new: glyphsSize.
-	LibC
+
+	self
 		memCopy: ptr
 		to: glyphs getHandle
 		size: glyphsSize * glyphs typeSize.
+
 	"Apply kerning on glyphs if font supports it"
 	font face hasKerning ifTrue: [
 		self
@@ -79,4 +80,12 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 	self freeGlyphs: ptr.
 
 	^ glyphs
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> memCopy: src to: dest size: n [
+
+	<primitive: 'primitive_cairo_memcpy_glyphs' module:
+	'CairoGraphicsPlugin'>
+	^ LibC memCopy: src to: dest size: n
 ]
