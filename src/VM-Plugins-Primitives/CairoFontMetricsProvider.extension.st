@@ -36,6 +36,20 @@ http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> ffiFreeGlyphs: glyphs [
+
+	^ self ffiCall: #( void cairo_glyph_free #( void #* glyphs ) )
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> freeGlyphs: glyphs [
+
+	<primitive: 'primitive_cairo_glyph_free' module:
+	'CairoGraphicsPlugin'>
+	^ self ffiFreeGlyphs: glyphs
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> getExtentsFont: fontHandle glyphs: glyphs length: num into: into [
 
 	<primitive: 'primitive_cairo_scaled_font_glyph_extents' module:
