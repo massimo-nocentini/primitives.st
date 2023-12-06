@@ -36,6 +36,14 @@ http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> getExtentsFont: fontHandle glyphs: glyphs length: num into: into [
+
+	<primitive: 'primitive_cairo_scaled_font_glyph_extents' module:
+	'CairoGraphicsPlugin'>
+	^ nil
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	| len ptr glyphs lenValue glyphsSize utf8Len error |
@@ -58,10 +66,15 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	glyphsSize := lenValue unsignedLongAt: 1.
 
-	cairoFont
-		getExtentsOfGlyphs: ptr
-		ofLength: glyphsSize
-		into: glyphExtents.
+	(self
+		 getExtentsFont: cairoFont getHandle
+		 glyphs: ptr
+		 length: glyphsSize
+		 into: glyphExtents getHandle) ifNil: [
+		cairoFont
+			getExtentsOfGlyphs: ptr
+			ofLength: glyphsSize
+			into: glyphExtents ].
 
 	glyphs := CairoGlyphsArray new: glyphsSize.
 
@@ -77,6 +90,7 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 			of: aString
 			from: start
 			to: end ].
+
 	self freeGlyphs: ptr.
 
 	^ glyphs
