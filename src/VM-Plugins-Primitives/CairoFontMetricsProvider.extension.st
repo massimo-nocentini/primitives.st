@@ -16,6 +16,15 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> extentsOf: aString [
+
+	| glyphs |
+	glyphs := self glyphsOf: aString.
+	self getExtentsOfGlyphs: glyphs getHandle ofLength: glyphs size.
+	^ glyphExtents
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> ffiConvertString: utf8String len: strlen ofFont: aScaledFont toGlyphs: glyphs numGlyphs: numGlyphs x: x y: y [
 "
 all of this for using
@@ -58,6 +67,20 @@ CairoFontMetricsProvider >> getExtentsFont: fontHandle glyphs: glyphs length: nu
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
+
+	(self
+		 getExtentsFont: cairoFont getHandle
+		 glyphs: ptr
+		 length: glyphsSize
+		 into: glyphExtents getHandle) ifNil: [
+		cairoFont
+			getExtentsOfGlyphs: ptr
+			ofLength: glyphsSize
+			into: glyphExtents ]
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	| len ptr glyphs lenValue glyphsSize utf8Len error |
@@ -80,15 +103,7 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	glyphsSize := lenValue unsignedLongAt: 1.
 
-	(self
-		 getExtentsFont: cairoFont getHandle
-		 glyphs: ptr
-		 length: glyphsSize
-		 into: glyphExtents getHandle) ifNil: [
-		cairoFont
-			getExtentsOfGlyphs: ptr
-			ofLength: glyphsSize
-			into: glyphExtents ].
+	self getExtentsOfGlyphs: ptr ofLength: glyphsSize.
 
 	glyphs := CairoGlyphsArray new: glyphsSize.
 
