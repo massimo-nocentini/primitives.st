@@ -8,7 +8,7 @@ Class {
 { #category : 'tests' }
 UtilsPrimitivesVMPluginTest >> testLines [
 
-	self
+	self 
 		assert: ('hello
 world' linesIncludeEmptySubstrings: false)
 		equals: { 'hello'. 'world' }

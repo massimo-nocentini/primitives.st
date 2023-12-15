@@ -2,7 +2,7 @@ Extension { #name : 'DateAndTime' }
 
 { #category : '*VM-Plugins-Primitives' }
 DateAndTime >> format: pattern locale: locale inLocalTime: inLocalTime [
-
+ 
 	^ self
 		  primitiveCompileThenFormat: pattern
 		  timer: self asUnixTime
