@@ -1,17 +1,10 @@
 Extension { #name : 'AthensCairoCanvas' }
 
 { #category : '*VM-Plugins-Primitives' }
-AthensCairoCanvas >> ffiTextPath: anUTF8EncodedString [
-
-	^ self ffiCall:
-		  #( void cairo_text_path #( self #, void #* anUTF8EncodedString ) )
-]
-
-{ #category : '*VM-Plugins-Primitives' }
 AthensCairoCanvas >> primitive: cairoHandle textPath: anUTF8EncodedString [
 
 	<primitive: 'primitive_cairo_text_path' module: 'CairoGraphicsPlugin'>
-	^ self ffiTextPath: anUTF8EncodedString
+	self primitiveFailed
 ]
 
 { #category : '*VM-Plugins-Primitives' }

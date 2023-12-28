@@ -18,32 +18,6 @@ CairoFontMetricsProvider >> extentsOf: aString [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
-CairoFontMetricsProvider >> ffiConvertString: utf8String len: strlen ofFont: aScaledFont toGlyphs: glyphs numGlyphs: numGlyphs x: x y: y [
-"
-all of this for using
-http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font-text-to-glyphs-func-t
-
-"
-	^ self ffiCall: #(
-		cairo_status_t cairo_scaled_font_text_to_glyphs (void * aScaledFont,
-			double x,
-			double y,
-			void * utf8String,
-			int strlen,
-			void ** glyphs,
-			int * numGlyphs,
-			NULL,
-			NULL,
-			NULL))
-]
-
-{ #category : '*VM-Plugins-Primitives' }
-CairoFontMetricsProvider >> ffiFreeGlyphs: glyphs [
-
-	^ self ffiCall: #( void cairo_glyph_free #( void #* glyphs ) )
-]
-
-{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> freeGlyphs: glyphs [
 
 	<primitive: 'primitive_cairo_glyph_free' module:

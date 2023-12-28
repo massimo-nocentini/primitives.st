@@ -12,18 +12,9 @@ CairoScaledFont >> extents [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
-CairoScaledFont >> ffiGetExtents: cairoFontExtents [
-
-	^ self ffiCall:
-		  #( void cairo_scaled_font_extents #( self #, CairoFontExtents
-		        #* cairoFontExtents ) )
-]
-
-{ #category : '*VM-Plugins-Primitives' }
 CairoScaledFont >> getExtents: cairoFontExtents [
 
-	^ (self primitive: self getHandle getExtents: cairoFontExtents)
-		  ifNil: [ self ffiGetExtents: cairoFontExtents ]
+	^ self primitive: self getHandle getExtents: cairoFontExtents
 ]
 
 { #category : '*VM-Plugins-Primitives' }
