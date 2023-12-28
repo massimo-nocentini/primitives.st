@@ -5,14 +5,7 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 
 	<primitive: 'primitive_cairo_scaled_font_text_to_glyphs' module:
 	'CairoGraphicsPlugin'>
-	^ self
-		  ffiConvertString: utf8String
-		  len: strlen
-		  ofFont: aScaledFont
-		  toGlyphs: glyphs
-		  numGlyphs: numGlyphs
-		  x: x
-		  y: y
+	self primitiveFailed
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -55,7 +48,7 @@ CairoFontMetricsProvider >> freeGlyphs: glyphs [
 
 	<primitive: 'primitive_cairo_glyph_free' module:
 	'CairoGraphicsPlugin'>
-	^ self ffiFreeGlyphs: glyphs
+	self primitiveFailed
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -63,21 +56,17 @@ CairoFontMetricsProvider >> getExtentsFont: fontHandle glyphs: glyphs length: nu
 
 	<primitive: 'primitive_cairo_scaled_font_glyph_extents' module:
 	'CairoGraphicsPlugin'>
-	^ nil
+	self primitiveFailed 
 ]
 
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 
-	(self
-		 getExtentsFont: cairoFont getHandle
-		 glyphs: ptr
-		 length: glyphsSize
-		 into: glyphExtents) ifNil: [
-		cairoFont
-			getExtentsOfGlyphs: ptr
-			ofLength: glyphsSize
-			into: glyphExtents ]
+	^ self
+		  getExtentsFont: cairoFont getHandle
+		  glyphs: ptr
+		  length: glyphsSize
+		  into: glyphExtents
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -103,7 +92,7 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	glyphsSize := lenValue unsignedLongAt: 1.
 
-	self getExtentsOfGlyphs: ptr ofLength: glyphsSize.
+	"self getExtentsOfGlyphs: ptr ofLength: glyphsSize."
 
 	glyphs := CairoGlyphsArray new: glyphsSize.
 
@@ -137,5 +126,5 @@ CairoFontMetricsProvider >> memCopy: src to: dest size: n [
 
 	<primitive: 'primitive_cairo_memcpy_glyphs' module:
 	'CairoGraphicsPlugin'>
-	^ LibC memCopy: src to: dest size: n
+	self primitiveFailed
 ]
