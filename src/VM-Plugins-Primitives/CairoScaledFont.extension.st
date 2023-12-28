@@ -27,6 +27,32 @@ CairoScaledFont >> getExtents: cairoFontExtents [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoScaledFont >> getExtentsOf: utf8String into: extentObj [
+
+	<primitive: 'primitive_cairo_scaled_font_text_extents' module:
+	'CairoGraphicsPlugin'>
+	
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoScaledFont >> getExtentsOfGlyphs: glyphs ofLength: num into: extents [
+
+	^ self
+		  getExtentsOfHandle: self getHandle
+		  ofGlyphs: glyphs
+		  ofLength: num
+		  into: extents
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoScaledFont >> getExtentsOfHandle: myHandle ofGlyphs: glyphs ofLength: num into: extents [
+
+	<primitive: 'primitive_cairo_scaled_font_glyph_extents' module:
+	'CairoGraphicsPlugin'>
+	
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoScaledFont >> primitive: cr getExtents: cairoFontExtents [
 
 	<primitive: 'primitive_cairo_scaled_font_extents' module:

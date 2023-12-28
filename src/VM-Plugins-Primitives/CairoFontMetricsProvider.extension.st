@@ -73,7 +73,7 @@ CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 		 getExtentsFont: cairoFont getHandle
 		 glyphs: ptr
 		 length: glyphsSize
-		 into: glyphExtents getHandle) ifNil: [
+		 into: glyphExtents) ifNil: [
 		cairoFont
 			getExtentsOfGlyphs: ptr
 			ofLength: glyphsSize
@@ -123,6 +123,13 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 	self freeGlyphs: ptr.
 
 	^ glyphs
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> initialize [
+	utfConverter := CairoUTF8Converter new.
+	glyphExtents := CairoTextExtentsBySlots new.
+	cache := CairoBackendCache soleInstance
 ]
 
 { #category : '*VM-Plugins-Primitives' }
