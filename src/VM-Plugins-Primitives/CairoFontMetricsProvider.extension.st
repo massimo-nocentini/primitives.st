@@ -44,6 +44,13 @@ CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> getGlyphWidth: aCharacter [
+
+	cairoFont getExtentsOf: aCharacter asUTF8ByteArray into: glyphExtents.
+	^ glyphExtents x_advance
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	| ptr glyphs lenValue glyphsSize error utf8string |

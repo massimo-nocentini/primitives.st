@@ -42,7 +42,33 @@ UtilsPrimitivesVMPluginTest >> testAsUTF8ByteArray_StringLoremIpsum [
 
 	| lorem |
 	lorem := String loremIpsum: 1000.
-	self assert: (lorem asUTF8ByteArray: false) equals: lorem asUTF8Bytes
+	self assert: lorem asUTF8ByteArray equals: lorem asUTF8Bytes
+]
+
+{ #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> testAsUTF8_ByteArray_String [
+
+	| lorem |
+	lorem := String loremIpsum: 1000.
+	self
+		assert: (lorem utf8WithTrailingZero: false asByteArray: true) asString
+		equals: (lorem utf8WithTrailingZero: false asByteArray: false)
+]
+
+{ #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> testAsUTF8_String [
+
+	| expected |
+	expected := 'abc' utf8WithTrailingZero: true asByteArray: false.
+
+	self
+		assert:
+		('abc' utf8WithTrailingZero: true asByteArray: true) asString
+		equals: expected.
+
+	self
+		assert: expected size
+		equals: ('abc' , Character null asString) size
 ]
 
 { #category : 'tests' }
