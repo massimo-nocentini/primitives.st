@@ -46,16 +46,15 @@ CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
-	| len ptr glyphs lenValue glyphsSize utf8Len error |
-	len := end - start + 1.
-	utf8Len := utfConverter convert: aString from: start to: end.
+	| ptr glyphs lenValue glyphsSize error utf8string |
+	utf8string := aString asUTF8ByteArray.
 
 	ptr := ExternalAddress new.
 	lenValue := ByteArray new: 4.
 
 	error := self
-		         convertString: utfConverter buffer
-		         len: utf8Len
+		         convertString: utf8string
+		         len: utf8string size
 		         ofFont: cairoFont getHandle
 		         toGlyphs: ptr
 		         numGlyphs: lenValue
@@ -90,7 +89,7 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> initialize [
-	utfConverter := CairoUTF8Converter new.
+	"utfConverter := CairoUTF8Converter new."
 	glyphExtents := CairoTextExtentsBySlots new.
 	cache := CairoBackendCache soleInstance
 ]
