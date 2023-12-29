@@ -3,7 +3,7 @@ Extension { #name : 'Character' }
 { #category : '*VM-Plugins-Primitives' }
 Character >> asUTF8ByteArray [
 
-	^ self asUTF8ByteArray: true
+	^ self asUTF8ByteArray: false
 ]
 
 { #category : '*VM-Plugins-Primitives' }

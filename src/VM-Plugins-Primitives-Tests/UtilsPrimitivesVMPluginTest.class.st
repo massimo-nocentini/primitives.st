@@ -9,8 +9,8 @@ Class {
 UtilsPrimitivesVMPluginTest >> testAsUTF8ByteArray_Character [
 
 	self
-		assert: 223 asCharacter asUTF8ByteArray equals: #[ 195 159 0 ];
-		assert: $a asUTF8ByteArray equals: #[ 97 0 ]
+		assert: 223 asCharacter asUTF8ByteArray equals: #[ 195 159 ];
+		assert: $a asUTF8ByteArray equals: #[ 97 ]
 ]
 
 { #category : 'tests' }
