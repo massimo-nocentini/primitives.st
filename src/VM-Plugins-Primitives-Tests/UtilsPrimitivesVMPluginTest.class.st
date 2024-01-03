@@ -74,6 +74,17 @@ UtilsPrimitivesVMPluginTest >> testAsUTF8_String [
 { #category : 'tests' }
 UtilsPrimitivesVMPluginTest >> testFixEmptyLinesForPango [
 
+	self assert: '' fixEmptyLinesForPango equals: ''.
+
+	self
+		assert: (String streamContents: [ :s | s nextPut: Character lf ])
+				fixEmptyLinesForPango
+		equals: (String streamContents: [ :s |
+				 s
+					 nextPut: Character space;
+					 nextPut: Character lf;
+					 nextPut: Character space ]).
+
 	self
 		assert: (String streamContents: [ :s |
 				 s
