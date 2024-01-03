@@ -88,6 +88,19 @@ UtilsPrimitivesVMPluginTest >> testFixEmptyLinesForPango [
 	self
 		assert: (String streamContents: [ :s |
 				 s
+					 nextPut: Character lf;
+					 nextPut: Character lf ]) fixEmptyLinesForPango
+		equals: (String streamContents: [ :s |
+				 s
+					 nextPut: Character space;
+					 nextPut: Character lf;
+					 nextPut: Character space;
+					 nextPut: Character lf;
+					 nextPut: Character space ]).
+
+	self
+		assert: (String streamContents: [ :s |
+				 s
 					 nextPut: $h;
 					 nextPut: Character lf;
 					 nextPut: Character lf;
