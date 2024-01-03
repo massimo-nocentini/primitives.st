@@ -19,6 +19,15 @@ String >> asUTF8String [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+String >> gMarkupEscapeText [
+	"https://docs.gtk.org/glib/func.markup_escape_text.html"
+
+	<primitive: 'primitive_g_markup_escape_text' module:
+	'CairoGraphicsPlugin'>
+	self primitiveFail
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 String >> linesIncludeEmptySubstrings: shouldInclude [
 
 	^ self strtok: self class crlf inclusive: shouldInclude

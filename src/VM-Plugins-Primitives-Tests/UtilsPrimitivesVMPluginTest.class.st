@@ -92,3 +92,11 @@ UtilsPrimitivesVMPluginTest >> testTimsort [
 		assert: (array timsort: #yourself reverse: false)
 		equals: (array sorted: [ :a :b | a < b ])
 ]
+
+{ #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> test_g_markup_escape_text [
+
+	self
+		assert: 'hello <i>world</i>' gMarkupEscapeText
+		equals: 'hello &lt;i&gt;world&lt;/i&gt;'
+]
