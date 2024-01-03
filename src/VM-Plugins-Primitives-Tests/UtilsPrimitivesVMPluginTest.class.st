@@ -72,12 +72,49 @@ UtilsPrimitivesVMPluginTest >> testAsUTF8_String [
 ]
 
 { #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> testFixEmptyLinesForPango [
+
+	self
+		assert: (String streamContents: [ :s |
+				 s
+					 nextPut: $h;
+					 nextPut: Character lf;
+					 nextPut: Character lf;
+					 nextPut: $w ]) fixEmptyLinesForPango
+		equals: (String streamContents: [ :s |
+				 s
+					 nextPut: $h;
+					 nextPut: Character lf;
+					 nextPut: Character space;
+					 nextPut: Character lf;
+					 nextPut: $w ])
+]
+
+{ #category : 'tests' }
 UtilsPrimitivesVMPluginTest >> testLines [
 
 	self 
 		assert: ('hello
 world' linesIncludeEmptySubstrings: false)
 		equals: { 'hello'. 'world' }
+]
+
+{ #category : 'tests' }
+UtilsPrimitivesVMPluginTest >> testReplaceAllTabsWithThreeSpaces [
+
+	self
+		assert: (String streamContents: [ :s |
+				 s
+					 nextPut: $h;
+					 nextPut: Character tab;
+					 nextPut: $w ]) replaceAllTabsWithThreeSpaces
+		equals: (String streamContents: [ :s |
+				 s
+					 nextPut: $h;
+					 nextPut: Character space;
+					 nextPut: Character space;
+					 nextPut: Character space;
+					 nextPut: $w ])
 ]
 
 { #category : 'tests' }

@@ -19,6 +19,30 @@ String >> asUTF8String [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+String >> fixEmptyLinesForPango [
+
+	<primitive: 'primitive_fix_empty_lines_for_pango' module:
+	'CairoGraphicsPlugin'>
+	| ending separator |
+	ending := Character cr.
+	separator := Character space.
+
+	^ self class streamContents: [ :stream |
+		  self first = ending ifTrue: [ stream << separator ].
+
+		  1 to: self size - 1 do: [ :i |
+			  | each |
+			  each := self at: i.
+			  stream nextPut: each.
+			  (each = ending and: [ (self at: i + 1) = ending ]) ifTrue: [
+				  stream nextPut: separator ] ].
+
+		  stream nextPut: self last.
+
+		  self last = ending ifTrue: [ stream << separator ] ]
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 String >> gMarkupEscapeText [
 	"https://docs.gtk.org/glib/func.markup_escape_text.html"
 
@@ -31,6 +55,22 @@ String >> gMarkupEscapeText [
 String >> linesIncludeEmptySubstrings: shouldInclude [
 
 	^ self strtok: self class crlf inclusive: shouldInclude
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+String >> replaceAllTabsWithSpaces: times [
+
+	<primitive: 'primitive_replace_tabs_with_spaces' module:
+	'CairoGraphicsPlugin'>
+	self
+		copyReplaceAll: self class tab
+		with: (self class space repeat: times)
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+String >> replaceAllTabsWithThreeSpaces [
+
+	^ self replaceAllTabsWithSpaces: 3
 ]
 
 { #category : '*VM-Plugins-Primitives' }
