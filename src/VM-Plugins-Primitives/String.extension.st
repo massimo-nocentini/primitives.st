@@ -30,7 +30,6 @@ String >> fixEmptyLinesForPango: splitter [
 	<primitive: 'primitive_fix_empty_lines_for_pango' module:
 	'CairoGraphicsPlugin'>
 	| ending separator |
-	self halt.
 	ending := Character cr.
 	separator := Character space.
 
