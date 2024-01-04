@@ -21,9 +21,16 @@ String >> asUTF8String [
 { #category : '*VM-Plugins-Primitives' }
 String >> fixEmptyLinesForPango [
 
+	^ self fixEmptyLinesForPango: Character cr
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+String >> fixEmptyLinesForPango: splitter [
+
 	<primitive: 'primitive_fix_empty_lines_for_pango' module:
 	'CairoGraphicsPlugin'>
 	| ending separator |
+	self halt.
 	ending := Character cr.
 	separator := Character space.
 
