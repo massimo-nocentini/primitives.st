@@ -77,101 +77,87 @@ UtilsPrimitivesVMPluginTest >> testFixEmptyLinesForPango [
 	self assert: '' fixEmptyLinesForPango equals: ''.
 
 	self
-		assert: (String streamContents: [ :s | s nextPut: Character lf ])
-				fixEmptyLinesForPango
+		assert: '
+' fixEmptyLinesForPango
 		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space ]).
 
 	self
-		assert: (String streamContents: [ :s |
-				 s
-					 nextPut: Character lf;
-					 nextPut: Character lf ]) fixEmptyLinesForPango
+		assert: '
+
+' fixEmptyLinesForPango
 		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space ]).
 
 	self
-		assert: (String streamContents: [ :s |
-				 s
-					 nextPut: $h;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: $w ]) fixEmptyLinesForPango
+		assert: 'h
+
+w' fixEmptyLinesForPango
 		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: $h;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: $w ]).
 
 	self
-		assert: (String streamContents: [ :s |
-				 s
-					 nextPut: $h;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: $w ]) fixEmptyLinesForPango
+		assert: 'h
+
+
+w' fixEmptyLinesForPango
 		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: $h;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: $w ]).
 
 	self
-		assert: (String streamContents: [ :s |
-				 s
-					 nextPut: $h;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: $w ]) fixEmptyLinesForPango
+		assert: 'h
+
+
+
+w' fixEmptyLinesForPango
 		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: $h;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: $w ]).
 
 	self
-		assert: (String streamContents: [ :s |
+		assert: 'h
+
+s
+
+w' fixEmptyLinesForPango
+		equals: (String streamContents: [ :s |
 				 s
 					 nextPut: $h;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
+					 nextPut: Character space;
+					 nextPut: Character cr;
 					 nextPut: $s;
-					 nextPut: Character lf;
-					 nextPut: Character lf;
-					 nextPut: $w ]) fixEmptyLinesForPango
-		equals: (String streamContents: [ :s |
-				 s
-					 nextPut: $h;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: Character space;
-					 nextPut: Character lf;
-					 nextPut: $s;
-					 nextPut: Character lf;
-					 nextPut: Character space;
-					 nextPut: Character lf;
+					 nextPut: Character cr;
 					 nextPut: $w ])
 ]
 
