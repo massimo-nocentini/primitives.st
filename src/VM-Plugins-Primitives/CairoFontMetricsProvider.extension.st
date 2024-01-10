@@ -5,7 +5,14 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 
 	<primitive: 'primitive_cairo_scaled_font_text_to_glyphs' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFailed
+	^ self
+		  ffiConvertString: utf8String
+		  len: strlen
+		  ofFont: aScaledFont
+		  toGlyphs: glyphs
+		  numGlyphs: numGlyphs
+		  x: x
+		  y: y
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -18,11 +25,49 @@ CairoFontMetricsProvider >> extentsOf: aString [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> ffiConvertString: utf8String len: strlen ofFont: aScaledFont toGlyphs: glyphs numGlyphs: numGlyphs x: x y: y [
+"
+all of this for using
+http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font-text-to-glyphs-func-t
+
+"
+	^ self ffiCall: #(
+		cairo_status_t cairo_scaled_font_text_to_glyphs (CairoScaledFont aScaledFont,
+			double x,
+			double y,
+			void * utf8String,
+			int strlen,
+			void ** glyphs,
+			int * numGlyphs,
+			NULL,
+			NULL,
+			NULL)) 
+		module: CairoScaledFont
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> ffiFreeGlyphs: glyphs [
+
+	^ self ffiCall: #( void cairo_glyph_free #( void #* glyphs ) )
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> ffiGetExtentsFont: fontHandle glyphs: glyphs length: num into: into [
+
+	^ self ffiCall: #(
+		void cairo_scaled_font_glyph_extents (void *fontHandle,
+                                            void *glyphs,
+                                            int num,
+                                            cairo_text_extents_t *into)) 
+			module: CairoScaledFont
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> freeGlyphs: glyphs [
 
 	<primitive: 'primitive_cairo_glyph_free' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFailed
+	^ self ffiFreeGlyphs: glyphs
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -30,7 +75,11 @@ CairoFontMetricsProvider >> getExtentsFont: fontHandle glyphs: glyphs length: nu
 
 	<primitive: 'primitive_cairo_scaled_font_glyph_extents' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFailed 
+	^ self
+		  ffiGetExtentsFont: fontHandle
+		  glyphs: glyphs
+		  length: num
+		  into: into
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -46,7 +95,10 @@ CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> getGlyphWidth: aCharacter [
 
-	cairoFont getExtentsOf: aCharacter asUTF8ByteArray into: glyphExtents.
+	cairoFont
+		getExtentsOf: (aCharacter asUTF8ByteArray ifNil: [
+				 utfConverter convertChar: aCharacter ])
+		into: glyphExtents.
 	^ glyphExtents x_advance
 ]
 
