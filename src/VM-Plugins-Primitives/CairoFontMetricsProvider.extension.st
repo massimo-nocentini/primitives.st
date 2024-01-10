@@ -106,7 +106,8 @@ CairoFontMetricsProvider >> getGlyphWidth: aCharacter [
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 	| ptr glyphs lenValue glyphsSize error utf8string |
-	utf8string := aString asUTF8ByteArray.
+	utf8string := aString asUTF8ByteArray ifNil: [
+		              utfConverter convert: aString from: start to: end ].
 
 	ptr := ExternalAddress new.
 	lenValue := ByteArray new: 4.

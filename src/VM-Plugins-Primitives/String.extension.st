@@ -91,5 +91,5 @@ String >> strtok: delimiters inclusive: boolean [
 String >> utf8WithTrailingZero: include asByteArray: aClass [
 
 	<primitive: 'primitive_string_to_utf8' module: 'CairoGraphicsPlugin'>
-	self primitiveFail
+	^ nil
 ]

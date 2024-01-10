@@ -11,5 +11,5 @@ Character >> asUTF8ByteArray: include [
 
 	<primitive: 'primitive_g_unichar_to_utf8' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFail
+	^ nil
 ]
