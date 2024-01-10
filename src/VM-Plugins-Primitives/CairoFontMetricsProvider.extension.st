@@ -150,7 +150,8 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> initialize [
-	"utfConverter := CairoUTF8Converter new."
+
+	utfConverter := CairoUTF8Converter new.
 	glyphExtents := CairoTextExtentsBySlots new.
 	cache := CairoBackendCache soleInstance
 ]
