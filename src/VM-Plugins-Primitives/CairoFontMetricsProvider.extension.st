@@ -164,5 +164,5 @@ CairoFontMetricsProvider >> memCopy: src to: dest size: n [
 
 	<primitive: 'primitive_cairo_memcpy_glyphs' module:
 	'CairoGraphicsPlugin'>
-	self primitiveFailed
+	^ LibC memCopy: src to: dest size: n
 ]
