@@ -42,7 +42,7 @@ http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font
 			NULL,
 			NULL,
 			NULL)) 
-		module: CairoScaledFont
+		module: CairoLibrary
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -59,7 +59,7 @@ CairoFontMetricsProvider >> ffiGetExtentsFont: fontHandle glyphs: glyphs length:
                                             void *glyphs,
                                             int num,
                                             cairo_text_extents_t *into)) 
-			module: CairoScaledFont
+			module: CairoLibrary
 ]
 
 { #category : '*VM-Plugins-Primitives' }
