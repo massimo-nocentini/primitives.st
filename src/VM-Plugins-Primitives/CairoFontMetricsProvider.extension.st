@@ -5,14 +5,7 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 
 	<primitive: 'primitive_cairo_scaled_font_text_to_glyphs' module:
 	'CairoGraphicsPlugin'>
-	^ self
-		  ffiConvertString: utf8String
-		  len: strlen
-		  ofFont: aScaledFont
-		  toGlyphs: glyphs
-		  numGlyphs: numGlyphs
-		  x: x
-		  y: y
+	^ nil
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -121,6 +114,16 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 		         numGlyphs: lenValue
 		         x: 0.0
 		         y: 0.0.
+
+	error ifNil: [
+		error := self
+			         ffiConvertString: utf8string
+			         len: utf8string size
+			         ofFont: cairoFont
+			         toGlyphs: ptr
+			         numGlyphs: lenValue
+			         x: 0.0
+			         y: 0.0 ].
 
 	error = CAIRO_STATUS_SUCCESS ifFalse: [ ^ CairoGlyphsArray new: 0 ].
 
