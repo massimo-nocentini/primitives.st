@@ -19,7 +19,7 @@ Class {
 { #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> ascent [
 
-	^ ascent
+	^ ascent ifNil: [ ascent := super ascent ]
 ]
 
 { #category : 'accessing - structure variables' }
@@ -31,7 +31,7 @@ CairoFontExtentsBySlots >> ascent: anObject [
 { #category : 'accessing' }
 CairoFontExtentsBySlots >> descent [
 
-	^ descent
+	^ descent ifNil: [ descent := super descent ]
 ]
 
 { #category : 'accessing' }
@@ -43,7 +43,7 @@ CairoFontExtentsBySlots >> descent: anObject [
 { #category : 'accessing' }
 CairoFontExtentsBySlots >> height [
 
-	^ height
+	^ height ifNil: [ height := super height ]
 ]
 
 { #category : 'accessing' }
@@ -55,7 +55,7 @@ CairoFontExtentsBySlots >> height: anObject [
 { #category : 'accessing' }
 CairoFontExtentsBySlots >> max_x_advance [
 
-	^ max_x_advance
+	^ max_x_advance ifNil: [ max_x_advance := super max_x_advance ]
 ]
 
 { #category : 'accessing' }
@@ -67,7 +67,7 @@ CairoFontExtentsBySlots >> max_x_advance: anObject [
 { #category : 'accessing' }
 CairoFontExtentsBySlots >> max_y_advance [
 
-	^ max_y_advance
+	^ max_y_advance ifNil: [ max_y_advance := super max_y_advance ]
 ]
 
 { #category : 'accessing' }
@@ -79,7 +79,7 @@ CairoFontExtentsBySlots >> max_y_advance: anObject [
 { #category : 'accessing' }
 CairoFontExtentsBySlots >> width [
 
-	^ width
+	^ width ifNil: [ width := super width ]
 ]
 
 { #category : 'accessing' }

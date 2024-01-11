@@ -19,7 +19,7 @@ Class {
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> height [
 
-	^ height
+	^ height ifNil: [ height := super height ]
 ]
 
 { #category : 'accessing' }
@@ -31,7 +31,7 @@ CairoTextExtentsBySlots >> height: anObject [
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> width [
 
-	^ width
+	^ width ifNil: [ width := super width ]
 ]
 
 { #category : 'accessing' }
@@ -43,7 +43,7 @@ CairoTextExtentsBySlots >> width: anObject [
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> x_advance [
 
-	^ x_advance
+	^ x_advance ifNil: [ x_advance := super x_advance ]
 ]
 
 { #category : 'accessing' }
@@ -55,7 +55,7 @@ CairoTextExtentsBySlots >> x_advance: anObject [
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> x_bearing [
 
-	^ x_bearing
+	^ x_bearing ifNil: [ x_bearing := super x_bearing ]
 ]
 
 { #category : 'accessing' }
@@ -67,7 +67,7 @@ CairoTextExtentsBySlots >> x_bearing: anObject [
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> y_advance [
 
-	^ y_advance
+	^ y_advance ifNil: [ y_advance := super y_advance ]
 ]
 
 { #category : 'accessing' }
@@ -79,7 +79,7 @@ CairoTextExtentsBySlots >> y_advance: anObject [
 { #category : 'accessing' }
 CairoTextExtentsBySlots >> y_bearing [
 
-	^ y_bearing
+	^ y_bearing ifNil: [ y_bearing := super y_bearing ]
 ]
 
 { #category : 'accessing' }
