@@ -4,7 +4,7 @@ Extension { #name : 'Float' }
 Float >> primitiveTimes: x plus: y [
 
 	<primitive: 'primitive_fma' module: 'UtilsPlugin'>
-	^ self * x + y
+	^ super times: x plus: y
 ]
 
 { #category : '*VM-Plugins-Primitives' }
