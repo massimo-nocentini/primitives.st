@@ -28,61 +28,61 @@ CairoFontExtentsBySlots >> ascent: anObject [
 	ascent := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> descent [
 
 	^ descent ifNil: [ descent := super descent ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> descent: anObject [
 
 	descent := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> height [
 
 	^ height ifNil: [ height := super height ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> height: anObject [
 
 	height := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> max_x_advance [
 
 	^ max_x_advance ifNil: [ max_x_advance := super max_x_advance ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> max_x_advance: anObject [
 
 	max_x_advance := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> max_y_advance [
 
 	^ max_y_advance ifNil: [ max_y_advance := super max_y_advance ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> max_y_advance: anObject [
 
 	max_y_advance := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> width [
 
 	^ width ifNil: [ width := super width ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - structure variables' }
 CairoFontExtentsBySlots >> width: anObject [
 
 	width := anObject
