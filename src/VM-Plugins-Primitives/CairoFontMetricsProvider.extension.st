@@ -152,6 +152,14 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+CairoFontMetricsProvider >> initialize [
+
+	utfConverter := CairoUTF8Converter new.
+	glyphExtents := CairoTextExtentsBySlots new.
+	cache := CairoBackendCache soleInstance
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> memCopy: src to: dest size: n [
 
 	<primitive: 'primitive_cairo_memcpy_glyphs' module:
