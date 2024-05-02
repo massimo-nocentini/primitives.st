@@ -1,6 +1,17 @@
 Extension { #name : 'CairoScaledFont' }
 
 { #category : '*VM-Plugins-Primitives' }
+CairoScaledFont >> extents [
+
+	| extents |
+	extents := CairoFontExtentsBySlots new.
+
+	self getExtents: extents.
+
+	^ extents
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 CairoScaledFont >> ffiGetExtents: cairoFontExtents [
 
 	^ self ffiCall:
