@@ -104,7 +104,7 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 		              utfConverter buffer ].
 
 	ptr := ExternalAddress new.
-	lenValue := ByteArray new: 4.
+	lenValue := FFIUInt32 newBuffer.
 
 	error := self
 		         convertString: utf8string
