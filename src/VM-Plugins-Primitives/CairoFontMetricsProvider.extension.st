@@ -32,9 +32,9 @@ http://www.cairographics.org/manual/cairo-User-Fonts.html#cairo-user-scaled-font
 			int strlen,
 			void ** glyphs,
 			int * numGlyphs,
-			NULL,
-			NULL,
-			NULL)) 
+			void * 0,
+			void * 0,
+			void * 0)) 
 		module: CairoLibrary
 ]
 
