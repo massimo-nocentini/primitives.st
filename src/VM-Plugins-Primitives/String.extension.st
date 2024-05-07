@@ -15,6 +15,8 @@ String >> asUTF8ByteArray: include [
 { #category : '*VM-Plugins-Primitives' }
 String >> asUTF8String [
 
+	<primitive: 'primitive_g_utf8_make_valid' module:
+	'CairoGraphicsPlugin'>
 	^ self utf8WithTrailingZero: false asByteArray: false
 ]
 
