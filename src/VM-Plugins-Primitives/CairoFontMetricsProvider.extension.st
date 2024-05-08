@@ -5,7 +5,14 @@ CairoFontMetricsProvider >> convertString: utf8String len: strlen ofFont: aScale
 
 	<primitive: 'primitive_cairo_scaled_font_text_to_glyphs' module:
 	'CairoGraphicsPlugin'>
-	^ nil
+	^ self
+		  ffiConvertString: utf8String
+		  len: utf8String size
+		  ofFont: aScaledFont
+		  toGlyphs: glyphs
+		  numGlyphs: numGlyphs
+		  x: x
+		  y: y
 ]
 
 { #category : '*VM-Plugins-Primitives' }
@@ -89,8 +96,8 @@ CairoFontMetricsProvider >> getExtentsOfGlyphs: ptr ofLength: glyphsSize [
 CairoFontMetricsProvider >> getGlyphWidth: aCharacter [
 
 	cairoFont
-		getExtentsOf: (aCharacter asUTF8ByteArray ifNil: [
-				 utfConverter convertChar: aCharacter ])
+		getExtentsOf: (aCharacter asUTF8ByteArray "ifNil: [
+				 utfConverter convertChar: aCharacter ]")
 		into: glyphExtents.
 	^ glyphExtents x_advance
 ]
@@ -98,7 +105,7 @@ CairoFontMetricsProvider >> getGlyphWidth: aCharacter [
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 
-	| ptr glyphs lenValue glyphsSize error utf8string |
+	| ptr lenValue error utf8string |
 	utf8string := aString asUTF8String asByteArray. "ifNil: [
 		              utfConverter convert: aString from: start to: end.
 		              utfConverter buffer ]"
@@ -109,54 +116,45 @@ CairoFontMetricsProvider >> glyphsOf: aString from: start to: end [
 	error := self
 		         convertString: utf8string
 		         len: utf8string size
-		         ofFont: cairoFont getHandle
+		         ofFont: cairoFont
 		         toGlyphs: ptr
 		         numGlyphs: lenValue
 		         x: 0.0
 		         y: 0.0.
 
-	error ifNil: [
-		error := self
-			         ffiConvertString: utf8string
-			         len: utf8string size
-			         ofFont: cairoFont
-			         toGlyphs: ptr
-			         numGlyphs: lenValue
-			         x: 0.0
-			         y: 0.0 ].
+	^ error = CAIRO_STATUS_SUCCESS
+		  ifTrue: [
+			  | glyphs glyphsSize |
+			  glyphsSize := lenValue unsignedLongAt: 1.
 
-	error = CAIRO_STATUS_SUCCESS ifFalse: [ ^ CairoGlyphsArray new: 0 ].
+			  "self getExtentsOfGlyphs: ptr ofLength: glyphsSize."
 
-	glyphsSize := lenValue unsignedLongAt: 1.
+			  glyphs := CairoGlyphsArray new: glyphsSize.
 
-	"self getExtentsOfGlyphs: ptr ofLength: glyphsSize."
+			  self
+				  memCopy: ptr
+				  to: glyphs getHandle
+				  size: glyphsSize * glyphs typeSize.
 
-	glyphs := CairoGlyphsArray new: glyphsSize.
+			  "Apply kerning on glyphs if font supports it"
+			  font face hasKerning ifTrue: [
+				  self
+					  applyKerningOn: glyphs
+					  of: aString
+					  from: start
+					  to: end ].
 
-	self
-		memCopy: ptr
-		to: glyphs getHandle
-		size: glyphsSize * glyphs typeSize.
+			  self freeGlyphs: ptr.
 
-	"Apply kerning on glyphs if font supports it"
-	font face hasKerning ifTrue: [
-		self
-			applyKerningOn: glyphs
-			of: aString
-			from: start
-			to: end ].
-
-	self freeGlyphs: ptr.
-
-	^ glyphs
+			  glyphs ]
+		  ifFalse: [ CairoGlyphsArray new: 0 ]
 ]
 
 { #category : '*VM-Plugins-Primitives' }
 CairoFontMetricsProvider >> initialize [
 
-	utfConverter := CairoUTF8Converter new.
-	glyphExtents := CairoTextExtentsBySlots new.
-	cache := CairoBackendCache soleInstance
+	"utfConverter := CairoUTF8Converter new."
+	glyphExtents := CairoTextExtentsBySlots new
 ]
 
 { #category : '*VM-Plugins-Primitives' }
