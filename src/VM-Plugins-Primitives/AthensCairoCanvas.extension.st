@@ -8,10 +8,30 @@ AthensCairoCanvas >> ffiTextPath: anUTF8EncodedString [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+AthensCairoCanvas class >> finalizeResourceData: athensCairoCanvas [
+
+	athensCairoCanvas destroy.
+	athensCairoCanvas getHandle free
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+AthensCairoCanvas >> getHandle [
+
+	^ handle
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 AthensCairoCanvas >> primitive: cairoHandle textPath: anUTF8EncodedString [
 
 	<primitive: 'primitive_cairo_text_path' module: 'CairoGraphicsPlugin'>
 	^ self ffiTextPath: anUTF8EncodedString
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+AthensCairoCanvas >> resourceData [
+	"Just return me"
+
+	
 ]
 
 { #category : '*VM-Plugins-Primitives' }
