@@ -33,6 +33,12 @@ TExternalAddressHolder >> getHandle [
 	^ handle
 ]
 
+{ #category : 'accessing' }
+TExternalAddressHolder >> handle: anExternalAddress [
+
+	handle := anExternalAddress
+]
+
 { #category : 'as yet unclassified' }
 TExternalAddressHolder >> resourceData [
 
