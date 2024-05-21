@@ -15,12 +15,6 @@ AthensCairoCanvas class >> finalizeResourceData: athensCairoCanvas [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
-AthensCairoCanvas >> getHandle [
-
-	^ handle
-]
-
-{ #category : '*VM-Plugins-Primitives' }
 AthensCairoCanvas >> primitive: cairoHandle textPath: anUTF8EncodedString [
 
 	<primitive: 'primitive_cairo_text_path' module: 'CairoGraphicsPlugin'>
