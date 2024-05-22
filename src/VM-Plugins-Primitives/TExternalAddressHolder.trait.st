@@ -21,25 +21,13 @@ TExternalAddressHolder classSide >> finalizeResourceData: anExternalAddress [
 	anExternalAddress beNull
 ]
 
-{ #category : 'as yet unclassified' }
-TExternalAddressHolder >> allocate [
-
-	self explicitRequirement
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 TExternalAddressHolder >> getHandle [
 
 	^ handle
 ]
 
-{ #category : 'accessing' }
-TExternalAddressHolder >> handle: anExternalAddress [
-
-	handle := anExternalAddress
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'freeing resources' }
 TExternalAddressHolder >> resourceData [
 
 	^ handle
