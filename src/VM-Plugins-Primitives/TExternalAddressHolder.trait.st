@@ -14,11 +14,11 @@ TExternalAddressHolder classSide >> deallocateHandle: anExternalAddress [
 ]
 
 { #category : 'finalization' }
-TExternalAddressHolder classSide >> finalizeResourceData: anExternalAddress [
+TExternalAddressHolder classSide >> finalizeResourceData: anObject [
 
-	self deallocateHandle: anExternalAddress.
+	self deallocateHandle: anObject.
 
-	anExternalAddress beNull
+	"anObject isExternalAddress beNull"
 ]
 
 { #category : 'accessing' }
