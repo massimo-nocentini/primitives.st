@@ -18,7 +18,7 @@ TExternalAddressHolder classSide >> finalizeResourceData: anObject [
 
 	self deallocateHandle: anObject.
 
-	"anObject isExternalAddress beNull"
+	anObject isExternalAddress beNull
 ]
 
 { #category : 'accessing' }
