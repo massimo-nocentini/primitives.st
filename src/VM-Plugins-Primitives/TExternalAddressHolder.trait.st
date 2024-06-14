@@ -16,9 +16,9 @@ TExternalAddressHolder classSide >> deallocateHandle: anExternalAddress [
 { #category : 'finalization' }
 TExternalAddressHolder classSide >> finalizeResourceData: anObject [
 
-	self deallocateHandle: anObject.
-
-	(anObject respondsTo: #beNull) ifTrue: [ anObject beNull ]
+	anObject ifNotNil: [
+		self deallocateHandle: anObject.
+		(anObject respondsTo: #beNull) ifTrue: [ anObject beNull ] ]
 ]
 
 { #category : 'adding' }
