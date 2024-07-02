@@ -4,11 +4,12 @@ Extension { #name : 'Float' }
 Float >> primitiveTimes: x plus: y [
 
 	<primitive: 'primitive_fma' module: 'UtilsPlugin'>
-	^ super times: x plus: y
+	^ nil
 ]
 
 { #category : '*VM-Plugins-Primitives' }
 Float >> times: x plus: y [
 
-	^ self primitiveTimes: x asFloat plus: y asFloat
+	^ (self primitiveTimes: x asFloat plus: y asFloat) ifNil: [
+		  super times: x plus: y ]
 ]
