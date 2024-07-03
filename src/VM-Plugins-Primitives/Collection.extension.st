@@ -3,9 +3,9 @@ Extension { #name : 'Collection' }
 { #category : '*VM-Plugins-Primitives' }
 Collection >> withReversedIndexDo: elementAndIndexBlock [
 
-	| selfSize |
-	selfSize := self size.
+	| adjustedSize |
+	adjustedSize := self size + 1.
 
 	self withIndexDo: [ :each :index |
-		elementAndIndexBlock value: each value: selfSize - index + 1 ]
+		elementAndIndexBlock value: each value: adjustedSize - index ]
 ]
