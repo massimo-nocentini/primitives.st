@@ -197,7 +197,7 @@ UtilsPrimitivesVMPluginTest >> testTimsort [
 	array := (1 to: 1e6) shuffled.
 
 	self
-		assert: (array timsort: #yourself reverse: false)
+		assert: (array timsort: #asFloat reverse: false)
 		equals: (array sorted: [ :a :b | a < b ])
 ]
 

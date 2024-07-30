@@ -12,6 +12,6 @@ SequenceableCollection >> timsort: key reverse: shouldReverse [
 
 	^ self
 		  primitiveTimsort:
-		  (self collect: [ :each | (key value: each) asFloat ] as: Array)
+		  (self collect: [ :each | key value: each ] as: Array)
 		  reverse: shouldReverse
 ]
