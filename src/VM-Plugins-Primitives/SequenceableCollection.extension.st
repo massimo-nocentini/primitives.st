@@ -8,6 +8,21 @@ SequenceableCollection >> primitiveTimsort: comparer reverse: shouldReverse [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+SequenceableCollection >> timsort [
+
+	^ self timsort: #asFloat
+]
+
+{ #category : '*VM-Plugins-Primitives' }
+SequenceableCollection >> timsort: key [
+
+	^ self
+		  primitiveTimsort:
+		  (self collect: [ :each | key value: each ] as: Array)
+		  reverse: false
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 SequenceableCollection >> timsort: key reverse: shouldReverse [
 
 	^ self
