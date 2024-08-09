@@ -194,11 +194,9 @@ UtilsPrimitivesVMPluginTest >> testTimsort [
 	| array |
 	self timeLimit: 5 seconds.
 
-	array := (1 to: 1e6) shuffled.
+	array := (1 to: 1e6) asArray shuffleBy: RSRandom new.
 
-	self
-		assert: (array timsort: #asFloat reverse: false)
-		equals: (array sorted: [ :a :b | a < b ])
+	self assert: array timsort equals: (array sorted: [ :a :b | a < b ])
 ]
 
 { #category : 'tests' }
