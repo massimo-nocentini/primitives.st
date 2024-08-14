@@ -194,7 +194,8 @@ UtilsPrimitivesVMPluginTest >> testTimsort [
 	| array |
 	self timeLimit: 5 seconds.
 
-	array := (1 to: 1e6) asArray shuffleBy: RSRandom new.
+	array := (1 to: 1e6) asArray shuffleBy:
+		         (RSRandom seed: Number firstCarmichaelNumber).
 
 	self assert: array timsort equals: (array sorted: [ :a :b | a < b ])
 ]
