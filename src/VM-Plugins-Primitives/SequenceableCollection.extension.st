@@ -16,17 +16,14 @@ SequenceableCollection >> timsort [
 { #category : '*VM-Plugins-Primitives' }
 SequenceableCollection >> timsort: key [
 
-	^ self
-		  primitiveTimsort:
-		  (self collect: [ :each | key value: each ] as: Array)
-		  reverse: false
+	^ self timsort: key reverse: false
 ]
 
 { #category : '*VM-Plugins-Primitives' }
 SequenceableCollection >> timsort: key reverse: shouldReverse [
 
-	^ self
-		  primitiveTimsort:
-		  (self collect: [ :each | key value: each ] as: Array)
-		  reverse: shouldReverse
+	| buffer |
+	buffer := self collect: [ :each | key value: each ] as: Array.
+
+	^ self primitiveTimsort: buffer reverse: shouldReverse
 ]
