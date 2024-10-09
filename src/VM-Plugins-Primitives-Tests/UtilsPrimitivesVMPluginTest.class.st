@@ -191,13 +191,17 @@ UtilsPrimitivesVMPluginTest >> testReplaceAllTabsWithThreeSpaces [
 { #category : 'tests' }
 UtilsPrimitivesVMPluginTest >> testTimsort [
 
-	| array |
+	| array sorted |
 	self timeLimit: 5 seconds.
 
 	array := (1 to: 1e6) asArray shuffleBy:
 		         (RSRandom seed: Number firstCarmichaelNumber).
 
-	self assert: array timsort equals: (array sorted: [ :a :b | a < b ])
+	sorted := array timsort.
+
+	self
+		deny: sorted identicalTo: array;
+		assert: sorted equals: (array sorted: [ :a :b | a < b ])
 ]
 
 { #category : 'tests' }
