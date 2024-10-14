@@ -10,7 +10,7 @@ Collection >> primitiveTimsort: comparer reverse: shouldReverse [
 { #category : '*VM-Plugins-Primitives' }
 Collection >> timsort [
 
-	^ self timsort: #yourself
+	^ self timsort: [ :each | each timsortSortKey ]
 ]
 
 { #category : '*VM-Plugins-Primitives' }
