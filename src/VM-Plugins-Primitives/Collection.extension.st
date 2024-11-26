@@ -32,6 +32,22 @@ Collection >> timsort: key reverse: shouldReverse [
 ]
 
 { #category : '*VM-Plugins-Primitives' }
+Collection >> weightedSample: aBlock random: random [
+
+	| collection j w limit |
+	collection := self timsort: aBlock.
+	limit := aBlock value: collection last.
+	j := random nextInteger: limit.
+
+	w := collection
+		     findBinaryIndex: [ :anObj |
+		     j threeWayCompareTo: (aBlock value: anObj) ]
+		     ifNone: [ :l | l min: collection size max: 1 ].
+
+	^ collection at: w
+]
+
+{ #category : '*VM-Plugins-Primitives' }
 Collection >> withReversedIndexDo: elementAndIndexBlock [
 
 	| adjustedSize |
