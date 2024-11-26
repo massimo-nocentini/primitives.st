@@ -42,7 +42,7 @@ Collection >> weightedSample: aBlock random: random [
 	w := collection
 		     findBinaryIndex: [ :anObj |
 		     j threeWayCompareTo: (aBlock value: anObj) ]
-		     ifNone: [ :l | l min: collection size max: 1 ].
+		     ifNone: [ :l :h | h min: collection size max: 1 ].
 
 	^ collection at: w
 ]
